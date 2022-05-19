@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+	<title>颖宝 ｜ 521 ｜ Love You</title>
+	<style style="text/css">
+		*{
+			margin:0;
+			padding:0;
+		}
+		
+		.container{
+			height: 100vh;
+			background:url("./bgcBlue.jpeg") no-repeat;
+			background-size: 100%;
+			background-size:cover;
+			overflow: hidden;
+			display: flex;
+			flex-direction: column;
+			min-height: 200px;
+		}
+		
+		.top{
+			width:100%;
+			height:auto;
+			padding: 60px 20px;
+			font-size:30px;
+			font-family:"华文行楷";
+			color: #FFF;
+		}
+		.top span{
+			color: transparent;
+			/* background:-webkit-linear-gradient(45deg,#ff6a87,#f500ff,#f55fff,#33ccff,#6db3ff,#a3fffa,#ff986d); */
+			background:-webkit-linear-gradient(45deg,#f55fff,#33ccff,#6db3ff,#a3fffa,#ff986d);
+			-webkit-background-clip:text;
+		}
+
+		/*end top*/
+		/*start box*/
+		.boxContainer{
+			flex: 1;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		.box{
+			width:300px;
+			height:300px;
+			margin:0 auto;
+			/*perspective:1000px;*//*景深*/
+		}
+		.box .pic{
+			position:relative;
+			transform-style:preserve-3d;/*3d环境*/
+			animation:play 10s linear infinite;/*动画名称 执行时间 匀速 无限执行*/
+		}
+		.box ul li{
+			list-style:none;
+			position:absolute;
+			top:0;
+			left:0;
+		}
+		.box ul li img{
+			width: 300px;
+			height: 300px;
+		}
+		/*start box*/
+		/*定义一个关键帧*/
+		@keyframes play{
+			from{transform:rotateY(0deg);}
+			to{transform:rotateY(360deg);}
+		}
+		/*start text*/
+		#text{
+			width:80%;
+			text-align: center;
+			color:#d162ff;
+			margin:auto;
+			padding: 20px;
+			font-size:24px;
+			font-family:"方正喵呜体";
+		}
+		/*end text*/
+	</style>
+</head>
+	<body>
+		<div class="container">
+			<div class="top">
+				<marquee behavior="alternate"><span>521，我爱你</span></marquee>
+			</div>
+			
+			<div class="boxContainer">
+				<div class="box">
+					<div class="pic">
+						<ul>
+							<li style="transform: rotateY(0deg) translateZ(300px);"><img src="./images/1.png" width="" height="" alt=""></li>
+							<li style="transform: rotateY(45deg) translateZ(300px);"><img src="./images/2.png" width="" height="" alt=""></li>
+							<li style="transform: rotateY(90deg) translateZ(300px);"><img src="./images/3.png" width="" height="" alt=""></li>
+							<li style="transform: rotateY(135deg) translateZ(300px);"><img src="./images/4.png" width="" height="" alt=""></li>
+							<li style="transform: rotateY(180deg) translateZ(300px);"><img src="./images/5.png" width="" height="" alt=""></li>
+							<li style="transform: rotateY(225deg) translateZ(300px);"><img src="./images/6.png" width="" height="" alt=""></li>
+							<li style="transform: rotateY(270deg) translateZ(300px);"><img src="./images/7.png" width="" height="" alt=""></li>
+							<li style="transform: rotateY(315deg) translateZ(300px);"><img src="./images/8.png" width="" height="" alt=""></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			
+			<div id="text"></div>
+
+			<!-- <embed src="./gaobai.mp3" type="audio/mpeg" autostart="true" loop="true"> -->
+			<div style="position: fixed; bottom: 10px; right: 10px; width: auto; height: 40px; width: 40px; border-radius: 100%; overflow: hidden;">
+				<video style="position: absolute; bottom: -7px; left: -5px;" controls=false autoplay="autoplay" width="250px" name="media"><source src="./gaobai.mp3" type="audio/mpeg"></video>
+			</div>
+
+			<script src="./jquery-1.9.1.min.js"></script>
+			<script src="./snow.js"></script>
+			<script>
+				$(".pic ul li").each(function(i){//遍历
+					var liSize = $(".pic ul li").size();//size个数
+					var deg=360/liSize;
+					//当前的li对象 添加css样式
+					$(this).css({"transform":"rotateY("+deg*i+"deg) translateZ("+36*liSize+"px)"});
+					
+					$.fn.snow({
+						minSize:10,
+						maxSize:25,
+						newOn:500,
+						flakeColor:"#ff9ab5"
+					});
+				});
+				function randomHexColor() { //随机生成十六进制颜色
+					var hex = Math.floor(Math.random() * 16777216).toString(16); //生成ffffff以内16进制数
+					while (hex.length < 6) { //while循环判断hex位数，少于6位前面加0凑够6位
+						hex = '0' + hex;
+					}
+					return '#' + hex; //返回‘#'开头16进制颜色
+				}
+				
+				var i=0;
+				var str="颖，能够遇见你是我最大的幸运，有了你，生活变得丰富多彩，世界也变得如此迷人，不是在最美好的时光遇见了你，而是遇见你后都是最美好的时光，我们一起携手到老💗。";
+				
+				window.onload=function typing(){
+					//获取div
+					var myDiv=document.getElementById("text");
+					myDiv.innerHTML+=`<span style=color:${randomHexColor()}>${str.charAt(i)}</ span>`
+					i++;
+					var id=setTimeout(typing,200);
+					if(i==str.length){
+						clearTimeout(id);
+						setTimeout(function reTyping(params) {
+							myDiv.innerHTML = null;
+							i=0;
+							typing();
+						}, 2500)
+					}
+				}
+
+				window.onresize=function(e) {
+					window.location.reload()
+				}
+			</script>
+		</div>
+	</body>
+</html>
